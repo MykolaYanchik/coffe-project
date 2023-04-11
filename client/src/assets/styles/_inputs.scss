@@ -1,0 +1,32 @@
+.input-container {
+  width: calc(100vw - 2rem);
+  position: relative;
+  margin: 1rem 0 1.5rem;
+  display: flex;
+  input {
+    min-width: 100%;
+    outline: none;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.25rem;
+    z-index: 1;
+    background: transparent;
+    border: 1px solid $light-gray;
+    border-radius: 0.25rem;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+.error {
+  position: absolute;
+  bottom: -1rem;
+  font-size: 0.875rem;
+  left: 0.25rem;
+  color: $error-color;
+}
+
+.input-label {
+  position: absolute;
+  top: -1rem;
+  left: 0.25rem;
+  font-size: 0.875rem;
+}

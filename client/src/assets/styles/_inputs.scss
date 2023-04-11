@@ -5,15 +5,24 @@
   display: flex;
   input {
     min-width: 100%;
+    line-height: 100%;
     outline: none;
-    font-size: 0.875rem;
-    padding: 0.5rem 0.25rem;
+    font-size: 1rem;
+    padding: 0.5625rem 0.25rem;
     z-index: 1;
     background: transparent;
     border: 1px solid $light-gray;
     border-radius: 0.25rem;
     font-family: "Inter", sans-serif;
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 32px rgb(255, 255, 255) inset !important;
+  color: $dark-color !important;
 }
 
 .error {

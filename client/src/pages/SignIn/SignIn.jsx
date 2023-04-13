@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import SmallLogo from "../../assets/icons/small-logo.svg";
+import { useForm } from "../../utils/hooks/useForm";
+import { validate } from "../../utils/formValidator/signInForm";
+import { useNavigate } from "react-router-dom";
+import links from "../../utils/links";
 
 export default function SignIn() {
-  const [form, setForm] = useState({});
-
-  const handlerChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+  const navigate = useNavigate();
+  const initialState = {
+    email: "",
+    password: "",
   };
 
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
+  const form = useForm({
+    initialState,
+    validate,
+    onSubmit,
+  });
+
+  const handleChange = (e) => {
+    form.handleChange(e);
   };
+
+  function onSubmit(values) {
+    console.log(values);
+    localStorage.setItem("auth", values.email);
+    navigate(links.main);
+  }
+
+  const { values, errors, handleSubmit } = form;
 
   return (
     <div className="login-block">
@@ -27,10 +43,11 @@ export default function SignIn() {
             <input
               type="text"
               name="email"
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleChange(e)}
+              value={values.email}
             />
             <div className="input-wrapper"></div>
-            <div className="error"></div>
+            <div className="error">{errors.email}</div>
           </div>
 
           <div className="input-container">
@@ -38,12 +55,13 @@ export default function SignIn() {
             <input
               type="password"
               name="password"
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleChange(e)}
+              value={values.password}
             />
             <div className="input-wrapper"></div>
-            <div className="error"></div>
+            <div className="error">{errors.password}</div>
           </div>
-          <button className="main-button" onClick={(e) => handlerSubmit(e)}>
+          <button className="main-button" onClick={(e) => handleSubmit(e)}>
             увійти
           </button>
         </form>

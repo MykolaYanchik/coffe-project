@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import SmallLogo from "../../assets/icons/small-logo.svg";
+import { useForm } from "../../utils/hooks/useForm";
+import { validate } from "../../utils/formValidator/registrationForm";
 
 export default function Registration() {
-  const [form, setForm] = useState({});
-
-  const handlerChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+  const initialState = {
+    email: "",
+    fullName: "",
+    userName: "",
+    password: "",
   };
 
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
+  const form = useForm({
+    initialState,
+    validate,
+    onSubmit,
+  });
+
+  const handleChange = (e) => {
+    form.handleChange(e)
+  }
+
+  function onSubmit(values) {
+    console.log(values)
+  }
+
+  const {errors, values, handleSubmit} = form;
 
   return (
     <div className="login-block">
@@ -27,10 +40,11 @@ export default function Registration() {
             <input
               type="text"
               name="email"
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleChange(e)}
+              value={values.email}
             />
             <div className="input-wrapper"></div>
-            <div className="error"></div>
+            <div className="error">{errors?.email}</div>
           </div>
 
           <div className="input-container">
@@ -38,10 +52,11 @@ export default function Registration() {
             <input
               type="text"
               name="fullName"
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleChange(e)}
+              value={values.fullName}
             />
             <div className="input-wrapper"></div>
-            <div className="error"></div>
+            <div className="error">{errors?.fullName}</div>
           </div>
 
           <div className="input-container">
@@ -49,10 +64,11 @@ export default function Registration() {
             <input
               type="text"
               name="userName"
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleChange(e)}
+              value={values.userName}
             />
             <div className="input-wrapper"></div>
-            <div className="error"></div>
+            <div className="error">{errors?.userName}</div>
           </div>
 
           <div className="input-container">
@@ -60,12 +76,13 @@ export default function Registration() {
             <input
               type="password"
               name="password"
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleChange(e)}
+              value={values.password}
             />
             <div className="input-wrapper"></div>
-            <div className="error"></div>
+            <div className="error">{errors?.password}</div>
           </div>
-          <button className="main-button" onClick={(e) => handlerSubmit(e)}>
+          <button className="main-button" onClick={(e) => handleSubmit(e)}>
             Зареєструватися
           </button>
         </form>
